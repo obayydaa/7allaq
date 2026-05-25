@@ -13,16 +13,7 @@ export async function signInAdmin(
   email: string,
   password: string
 ): Promise<{ success: boolean; error?: string }> {
-  // Demo mode bypass
-  if (email === 'admin@demo.com' && password === 'admin') {
-    if (typeof window !== 'undefined') localStorage.setItem('demo_admin', 'true');
-    // Force a tiny delay for realism and to ensure localStorage is written
-    await new Promise(resolve => setTimeout(resolve, 500));
-    // Hard reload the page so the useAuth hook picks up the new localStorage value
-    if (typeof window !== 'undefined') window.location.href = '/admin/bookings';
-    return { success: true };
-  }
-
+ 
   try {
     await signInWithEmailAndPassword(auth, email, password);
     return { success: true };
